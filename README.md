@@ -9,15 +9,15 @@ Customer churn directly affects recurring revenue and customer lifetime value. T
 The resulting churn probability can help a retention team prioritize customers for proactive intervention.
 
 ### 📁 Dataset
-The notebook uses Telco_Customer_Churn.csv.
+# The notebook uses Telco_Customer_Churn.csv.
 
-Item Value
+## Item Value
 
 Original records 7,043 Original columns 21 Target Churn Non-churn customers 5,163 Churn customers 1,869 Churn rate ~27% Rows removed during TotalCharges cleaning 11
 
 The dataset is imbalanced: approximately 27% of customers churn while approximately 73% do not.
 
-Features used
+# Features used
 Numerical features - MonthlyCharges - TotalCharges - tenure
 
 Categorical features - gender - SeniorCitizen - Partner - Dependents - PhoneService - MultipleLines - InternetService - OnlineSecurity - OnlineBackup - DeviceProtection - TechSupport - StreamingTV - StreamingMovies - Contract - PaperlessBilling - PaymentMethod
@@ -27,34 +27,34 @@ customerID is not used as a predictive feature.
 ### 🧹 Data Preprocessing
 The notebook performs the following preprocessing steps:
 
-Loads the Telco customer churn dataset.
+## Loads the Telco customer churn dataset.
 Converts TotalCharges from string/object to numeric.
 Removes 11 records where TotalCharges could not be converted.
 Separates numerical and categorical features.
 Maps the target:
 Yes → 1
 No → 0
-Creates a 70/30 stratified train-test split.
+## Creates a 70/30 stratified train-test split.
 Uses a ColumnTransformer and Scikit-learn pipelines to prevent inconsistent preprocessing.
 Numerical pipeline
 Pipeline([
     ('imputer', SimpleImputer(strategy='median')),
     ('scaler', StandardScaler())
 ])
-Categorical pipeline
+## Categorical pipeline
 Pipeline([
     ('imputer', SimpleImputer(strategy='most_frequent')),
     ('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])
-This design makes the preprocessing reusable and ensures that transformations applied during training are also applied during prediction.
+# This design makes the preprocessing reusable and ensures that transformations applied during training are also applied during prediction.
 
 ### 🤖 Machine Learning Models
 Three classification algorithms are compared:
 
-1. Logistic Regression
+## 1. Logistic Regression
 Logistic Regression is used with:
 
-LogisticRegression(
+## LogisticRegression(
     class_weight='balanced',
     random_state=42
 )
@@ -62,7 +62,7 @@ class_weight='balanced' helps compensate for the unequal distribution of churn a
 
 The notebook reports a 5-fold cross-validation ROC-AUC of approximately 0.848 for Logistic Regression.
 
-2. Random Forest
+## 2. Random Forest
 The initial Random Forest uses 200 estimators and balanced class weights.
 
 Its reported 5-fold cross-validation ROC-AUC is approximately 0.822.
@@ -78,7 +78,7 @@ n_estimators     = 400
 Best reported Random Forest CV ROC-AUC:
 
 0.8381
-3. XGBoost
+## 3. XGBoost
 XGBoost is trained with class-imbalance handling through scale_pos_weight.
 
 Key configuration:
@@ -96,11 +96,11 @@ XGBClassifier(
 ### 📈 Model Comparison
 The final comparison table recorded in the notebook is:
 
-Model ROC-AUC F1 Score Precision Recall
+## Model ROC-AUC F1 Score Precision Recall
 
 Logistic Regression 0.86 0.64 0.52 0.84 Random Forest 0.85 0.65 0.56 0.78 XGBoost 0.86 0.64 0.54 0.79
 
-XGBoost detailed test results
+## XGBoost detailed test results
 XGBoost achieved:
 
 Accuracy: ~77%
@@ -133,7 +133,7 @@ Which features reduce predicted churn risk?
 Both SHAP summary visualization and bar-based feature importance visualization are included in the notebook.
 
 ### 💼 Business Use Case
-A trained churn model can assign each customer a probability of churn.
+# A trained churn model can assign each customer a probability of churn.
 
 A retention team could use these probabilities to:
 
@@ -158,7 +158,7 @@ Retention Action
 ### 🧠 Why ROC-AUC, Recall and F1 Matter
 Because only about 27% of customers in the dataset churn, accuracy alone can be misleading.
 
-For this project:
+## For this project:
 
 Recall measures how many actual churners the model successfully identifies.
 Precision measures how many customers predicted to churn actually churn.
@@ -193,16 +193,16 @@ Customer-Churn-Prediction/
     ├── feature_importance.png
     └── shap_summary.png
 ### ▶️ How to Run the Project
-1. Clone the repository
+## 1. Clone the repository
 git clone <your-repository-url>
 cd Customer-Churn-Prediction
-2. Install dependencies
+## 2. Install dependencies
 pip install pandas numpy matplotlib seaborn scikit-learn xgboost shap joblib jupyter
-3. Update the dataset path
+## 3. Update the dataset path
 The current notebook reads the dataset from a local Windows path. For a GitHub repository, change it to:
 
 data = pd.read_csv("Telco_Customer_Churn.csv")
-4. Launch Jupyter
+## 4. Launch Jupyter
 jupyter notebook
 Open:
 
@@ -212,7 +212,7 @@ and run the notebook cells.
 ### 💾 Model Saving
 The notebook saves the trained XGBoost pipeline using Joblib:
 
-joblib.dump(xgb_model, "xgb_model.pkl")
+## joblib.dump(xgb_model, "xgb_model.pkl")
 Because preprocessing and the classifier are contained in the same pipeline, the saved model can apply the required preprocessing before generating predictions.
 
 ### 🚀 Future Improvements
