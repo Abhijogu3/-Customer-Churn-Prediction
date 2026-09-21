@@ -3,12 +3,12 @@ An end-to-end machine learning project for predicting telecom customer churn and
 
 The project builds a reusable preprocessing and modeling pipeline, compares multiple classification algorithms, addresses class imbalance, tunes a Random Forest model, and applies SHAP-based model explainability.
 
-🎯 Business Problem
+### 🎯 Business Problem
 Customer churn directly affects recurring revenue and customer lifetime value. The goal of this project is to use customer demographics, subscribed services, account information, contract details, and billing behavior to predict whether a customer is likely to churn.
 
 The resulting churn probability can help a retention team prioritize customers for proactive intervention.
 
-📁 Dataset
+### 📁 Dataset
 The notebook uses Telco_Customer_Churn.csv.
 
 Item Value
@@ -24,7 +24,7 @@ Categorical features - gender - SeniorCitizen - Partner - Dependents - PhoneServ
 
 customerID is not used as a predictive feature.
 
-🧹 Data Preprocessing
+### 🧹 Data Preprocessing
 The notebook performs the following preprocessing steps:
 
 Loads the Telco customer churn dataset.
@@ -48,7 +48,7 @@ Pipeline([
 ])
 This design makes the preprocessing reusable and ensures that transformations applied during training are also applied during prediction.
 
-🤖 Machine Learning Models
+### 🤖 Machine Learning Models
 Three classification algorithms are compared:
 
 1. Logistic Regression
@@ -93,7 +93,7 @@ XGBClassifier(
     random_state=42,
     eval_metric='logloss'
 )
-📈 Model Comparison
+### 📈 Model Comparison
 The final comparison table recorded in the notebook is:
 
 Model ROC-AUC F1 Score Precision Recall
@@ -114,7 +114,7 @@ Churn F1 Score: 0.64
            1       0.54      0.79      0.64       561
 
     accuracy                           0.77      2110
-🏆 Model Interpretation
+### 🏆 Model Interpretation
 There is no single winner for every metric:
 
 Logistic Regression provides the highest reported churn recall (0.84), which is useful when missing a churner is expensive.
@@ -132,7 +132,7 @@ Which features push a particular customer toward a higher churn probability?
 Which features reduce predicted churn risk?
 Both SHAP summary visualization and bar-based feature importance visualization are included in the notebook.
 
-💼 Business Use Case
+### 💼 Business Use Case
 A trained churn model can assign each customer a probability of churn.
 
 A retention team could use these probabilities to:
@@ -155,7 +155,7 @@ Churn Probability
 Customer Risk Prioritization
       ↓
 Retention Action
-🧠 Why ROC-AUC, Recall and F1 Matter
+### 🧠 Why ROC-AUC, Recall and F1 Matter
 Because only about 27% of customers in the dataset churn, accuracy alone can be misleading.
 
 For this project:
@@ -175,7 +175,7 @@ XGBoost
 SHAP
 Jupyter Notebook
 Joblib
-📂 Suggested Repository Structure
+### 📂 Suggested Repository Structure
 Customer-Churn-Prediction/
 │
 ├── README.md
@@ -192,7 +192,7 @@ Customer-Churn-Prediction/
     ├── roc_curve.png
     ├── feature_importance.png
     └── shap_summary.png
-▶️ How to Run the Project
+### ▶️ How to Run the Project
 1. Clone the repository
 git clone <your-repository-url>
 cd Customer-Churn-Prediction
@@ -209,13 +209,13 @@ Open:
 Customer_Churn_Prediction.ipynb
 and run the notebook cells.
 
-💾 Model Saving
+### 💾 Model Saving
 The notebook saves the trained XGBoost pipeline using Joblib:
 
 joblib.dump(xgb_model, "xgb_model.pkl")
 Because preprocessing and the classifier are contained in the same pipeline, the saved model can apply the required preprocessing before generating predictions.
 
-🚀 Future Improvements
+### 🚀 Future Improvements
 Potential extensions include:
 
 Threshold optimization based on retention campaign cost.
@@ -227,12 +227,12 @@ Deployment through Streamlit or FastAPI.
 Customer-level churn-risk dashboard.
 Automated model monitoring and retraining.
 Integration with CRM/customer-retention workflows.
-📌 Key Takeaway
+### 📌 Key Takeaway
 This project demonstrates an end-to-end classification workflow for a real business problem: from data cleaning and preprocessing to class-imbalance handling, model comparison, hyperparameter tuning, evaluation, explainability, and model persistence.
 
 The results show that churn can be predicted with useful discriminatory performance, with the tested models reaching approximately 0.85--0.86 ROC-AUC.
 
-👤 Author
+### 👤 Author
 Abhishek Jogu
 
 Data Analyst | SQL | Python | Power BI | Machine Learning
