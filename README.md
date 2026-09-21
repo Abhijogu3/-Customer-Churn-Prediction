@@ -1,17 +1,17 @@
-### 📊 Customer Churn Prediction
+## 📊 Customer Churn Prediction
 An end-to-end machine learning project for predicting telecom customer churn and identifying customers who are at higher risk of leaving the business.
 
 The project builds a reusable preprocessing and modeling pipeline, compares multiple classification algorithms, addresses class imbalance, tunes a Random Forest model, and applies SHAP-based model explainability.
 
-### 🎯 Business Problem
+## 🎯 Business Problem
 Customer churn directly affects recurring revenue and customer lifetime value. The goal of this project is to use customer demographics, subscribed services, account information, contract details, and billing behavior to predict whether a customer is likely to churn.
 
 The resulting churn probability can help a retention team prioritize customers for proactive intervention.
 
-### 📁 Dataset
+## 📁 Dataset
 # The notebook uses Telco_Customer_Churn.csv.
 
-## Item Value
+### Item Value
 
 Original records 7,043 Original columns 21 Target Churn Non-churn customers 5,163 Churn customers 1,869 Churn rate ~27% Rows removed during TotalCharges cleaning 11
 
@@ -24,10 +24,10 @@ Categorical features - gender - SeniorCitizen - Partner - Dependents - PhoneServ
 
 customerID is not used as a predictive feature.
 
-### 🧹 Data Preprocessing
+## 🧹 Data Preprocessing
 The notebook performs the following preprocessing steps:
 
-## Loads the Telco customer churn dataset.
+### Loads the Telco customer churn dataset.
 Converts TotalCharges from string/object to numeric.
 Removes 11 records where TotalCharges could not be converted.
 Separates numerical and categorical features.
@@ -41,20 +41,20 @@ Pipeline([
     ('imputer', SimpleImputer(strategy='median')),
     ('scaler', StandardScaler())
 ])
-## Categorical pipeline
+### Categorical pipeline
 Pipeline([
     ('imputer', SimpleImputer(strategy='most_frequent')),
     ('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])
 # This design makes the preprocessing reusable and ensures that transformations applied during training are also applied during prediction.
 
-### 🤖 Machine Learning Models
+## 🤖 Machine Learning Models
 Three classification algorithms are compared:
 
-## 1. Logistic Regression
+### 1. Logistic Regression
 Logistic Regression is used with:
 
-## LogisticRegression(
+### LogisticRegression(
     class_weight='balanced',
     random_state=42
 )
@@ -62,7 +62,7 @@ class_weight='balanced' helps compensate for the unequal distribution of churn a
 
 The notebook reports a 5-fold cross-validation ROC-AUC of approximately 0.848 for Logistic Regression.
 
-## 2. Random Forest
+### 2. Random Forest
 The initial Random Forest uses 200 estimators and balanced class weights.
 
 Its reported 5-fold cross-validation ROC-AUC is approximately 0.822.
@@ -78,7 +78,7 @@ n_estimators     = 400
 Best reported Random Forest CV ROC-AUC:
 
 0.8381
-## 3. XGBoost
+### 3. XGBoost
 XGBoost is trained with class-imbalance handling through scale_pos_weight.
 
 Key configuration:
@@ -93,14 +93,14 @@ XGBClassifier(
     random_state=42,
     eval_metric='logloss'
 )
-### 📈 Model Comparison
+## 📈 Model Comparison
 The final comparison table recorded in the notebook is:
 
 ## Model ROC-AUC F1 Score Precision Recall
 
 Logistic Regression 0.86 0.64 0.52 0.84 Random Forest 0.85 0.65 0.56 0.78 XGBoost 0.86 0.64 0.54 0.79
 
-## XGBoost detailed test results
+### XGBoost detailed test results
 XGBoost achieved:
 
 Accuracy: ~77%
