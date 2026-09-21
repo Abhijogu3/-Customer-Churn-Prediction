@@ -1,4 +1,4 @@
-##📊 Customer Churn Prediction
+###📊 Customer Churn Prediction
 An end-to-end machine learning project for predicting telecom customer churn and identifying customers who are at higher risk of leaving the business.
 
 The project builds a reusable preprocessing and modeling pipeline, compares multiple classification algorithms, addresses class imbalance, tunes a Random Forest model, and applies SHAP-based model explainability.
